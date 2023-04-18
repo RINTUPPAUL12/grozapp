@@ -1,0 +1,24 @@
+{% block extrahead %}
+{{ block.super }}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Function to update the region field when the subregion field changes
+    function updateRegionField() {
+        var subregion_id = $('#id_subregion').val();
+        $.ajax({
+            url: "/get_region/",
+            data: {'subregion_id': subregion_id},
+            success: function(data) {
+                $('#id_region').val(data.region_id);
+            }
+        });
+    }
+// Update the region field initially
+updateRegionField();
+
+// Update the region field whenever the subregion field changes
+$('#id_subregion').change(updateRegionField);
+});
+</script>
+{% endblock %}
